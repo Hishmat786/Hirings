@@ -14,7 +14,7 @@ function Navbar() {
 
         {/* Middle: Navigation Links with Scale Effect */}
         <div className="hidden md:flex space-x-8">
-          <a href="#" className="text-white text-2xl hover:text-gray-200 hover:scale-105 transition-transform duration-200">
+          <a href="/" className="text-white text-2xl hover:text-gray-200 hover:scale-105 transition-transform duration-200">
             Home
           </a>
           <a href="#" className="text-white text-2xl hover:text-gray-200 hover:scale-105 transition-transform duration-200">

@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import welcomeImage from '../assets/wellcome.jpg'; // Replace this with your image path
 
 function Home() {
+    const navigate = useNavigate();
+
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
             <div className="container mx-auto p-6 flex flex-col md:flex-row items-center gap-8">
@@ -14,14 +17,16 @@ function Home() {
 
                     {/* Buttons for Register and Log In */}
                     <div className="flex space-x-4">
-                        <button className="bg-blue-500 text-white text-xl px-6 py-2 rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl active:scale-95">
+                        <button 
+                            className="bg-blue-500 text-white text-xl px-6 py-2 rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl active:scale-95"
+                            onClick={() => navigate('/register')}
+                        >
                             Register
                         </button>
                         <button className="bg-blue-500 text-white text-xl px-6 py-2 rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-xl active:scale-95">
                             Log In
                         </button>
                     </div>
-
 
                 </div>
 
