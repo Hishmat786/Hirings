@@ -109,8 +109,8 @@ function JobSeekerDashboard() {
 
         {/* Conditional Rendering Based on Active Section */}
         {activeSection === "Dashboard" && <Dashboard employeeMail={employeeMail}/>}
-        {activeSection === "Apply For Jobs" && <ApplyForJobs />}
-        {activeSection === "Applied Jobs" && <AppliedJobs />}
+        {activeSection === "Apply For Jobs" && <ApplyForJobs employeeMail={employeeMail}/>}
+        {activeSection === "Applied Jobs" && <AppliedJobs employeeMail={employeeMail}/>}
         {activeSection === "My Profile" && <p>Profile</p>}
       </main>
     </div>

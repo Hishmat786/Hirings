@@ -47,6 +47,7 @@
 const express = require("express");
 const router = express.Router();
 const Job = require("../models/Job");
+const JobApplication = require('../models/JobApplication'); 
 
 // Route to post a job
 router.post("/post", async (req, res) => {
@@ -111,4 +112,64 @@ router.get("/all", async (req, res) => {
     }
 });
 
+router.post('/apply', async (req, res) => {
+    try {
+      const { email, jobId, jobTitle, company, location, appliedAt } = req.body;
+  
+      if (!email || !jobId) {
+        return res.status(400).json({ message: 'Email and job ID are required.' });
+      }
+  
+      const existingApplication = await JobApplication.findOne({ email, jobId });
+  
+      if (existingApplication) {
+        return res.status(400).json({ message: 'You have already applied for this job.' });
+      }
+  
+      const newApplication = new JobApplication({
+        email,
+        jobId,
+        jobTitle,
+        company,
+        location,
+        appliedAt,
+      });
+  
+      await newApplication.save();
+  
+      res.status(201).json({ message: 'Job application submitted successfully.' });
+    } catch (error) {
+      console.error('Server Error:', error);
+      res.status(500).json({ message: 'Internal server error.' });
+    }
+  });
+  
+// Route to fetch applied jobs by email
+router.get('/applied', async (req, res) => {
+    const { email } = req.query;
+  
+    if (!email) {
+      return res.status(400).json({ message: 'Email is required' });
+    }
+  
+    try {
+      const appliedJobs = await JobApplication.find({ email });
+      res.status(200).json(appliedJobs);
+    } catch (error) {
+      console.error('Error fetching applied jobs:', error);
+      res.status(500).json({ message: 'Failed to fetch applied jobs' });
+    }
+  });
+
+  router.delete('/withdraw/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      await JobApplication.findByIdAndDelete(id);
+      res.status(200).json({ message: 'Job application withdrawn successfully.' });
+    } catch (error) {
+      console.error('Error withdrawing job application:', error);
+      res.status(500).json({ message: 'Failed to withdraw job application.' });
+    }
+  });
+  
 module.exports = router;
