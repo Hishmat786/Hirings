@@ -21,4 +21,25 @@ router.post('/register', async (req, res) => {
     }
 });
 
+
+// Employee Login
+router.post('/login', async (req, res) => {
+    console.log("Login endpoint hit!");
+    try {
+        const { email, password } = req.body;
+
+        // Find employee by email and password
+        const employee = await Employee.findOne({ email, password });
+
+        console.log("e", employee)
+        if (!employee) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+
+        res.status(200).json({ message: 'Login successful', employee });
+    } catch (err) {
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 module.exports = router;

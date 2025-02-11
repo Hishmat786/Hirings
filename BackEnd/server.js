@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const employeeRoutes = require('./routes/employeeRoutes');
-
+const jobRoutes = require("./routes/jobs");
 const app = express();
 
 // Middleware
@@ -12,6 +12,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/employees', employeeRoutes);
+app.use("/api/jobs", jobRoutes); 
 
 // MongoDB Connection
 const mongoURI = process.env.MONGO_URI;
